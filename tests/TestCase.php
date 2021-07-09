@@ -52,8 +52,7 @@ class TestCase extends Orchestra
 
         (new UserLoginToken())->forceFill([
             'url' => $url,
-            'created_at' => $created_at
+            'created_at' => $created_at,
         ])->save();
-
     }
 }
