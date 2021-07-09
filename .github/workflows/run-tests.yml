@@ -1,4 +1,4 @@
-name: "Run tests - current"
+name: "Tests - Current"
 
 on:
   push:

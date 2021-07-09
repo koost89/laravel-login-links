@@ -1,4 +1,4 @@
-name: "Run tests - older"
+name: "Tests - Older"
 
 on:
   push:
