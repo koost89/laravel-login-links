@@ -3,8 +3,8 @@
 namespace Koost89\UserLogin\Tests\Factories;
 
 use Koost89\UserLogin\Database\Factories\UserLoginTokenFactory;
-use Koost89\UserLogin\Tests\TestCase;
 use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Tests\TestCase;
 
 class UserLoginTokenFactoryTest extends TestCase
 {

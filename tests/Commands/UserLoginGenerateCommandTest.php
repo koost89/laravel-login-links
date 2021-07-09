@@ -19,5 +19,4 @@ class UserLoginGenerateCommandTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
         $this->artisan(UserLoginTokenGenerateCommand::class, ['id' => "A"]);
     }
-
 }

@@ -17,5 +17,4 @@ class UserLoginToken extends Model
     {
         return UserLoginTokenFactory::new();
     }
-
 }

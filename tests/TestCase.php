@@ -3,8 +3,8 @@
 namespace Koost89\UserLogin\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Koost89\UserLogin\UserLoginServiceProvider;
 use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\UserLogin\UserLoginServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

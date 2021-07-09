@@ -2,9 +2,8 @@
 
 namespace Koost89\UserLogin\Tests;
 
-use Koost89\UserLogin\UserLogin;
 use Koost89\UserLogin\Tests\TestClasses\User;
-use Koost89\UserLogin\Tests\TestCase;
+use Koost89\UserLogin\UserLogin;
 
 class LoginTest extends TestCase
 {
