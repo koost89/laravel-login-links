@@ -30,8 +30,8 @@
         "nesbot/carbon": "^2.35"
     },
     "require-dev": {
-        "nunomaduro/collision": "^3.0 || ^4.0 || ^5.0",
-        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
+        "nunomaduro/collision": "^3.0|| ^5.0",
+        "orchestra/testbench": "^4.8 || ^5.2 || ^6.0",
         "phpunit/phpunit": "^9.3"
     },
     "autoload": {
