@@ -9,7 +9,7 @@ class CreateUserLoginTokensTable extends Migration
     public function up()
     {
         Schema::create('user_login_tokens', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('url');
             $table->timestamps();
         });
