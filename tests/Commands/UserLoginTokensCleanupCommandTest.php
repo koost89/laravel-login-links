@@ -16,8 +16,8 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
     public function test_it_successfully_deletes_expired_tokens()
     {
-        UserLoginToken::factory()->create(['created_at' => now()->subDays(2)]);
-        UserLoginToken::factory()->create(['created_at' => now()->subMinutes(3)]);
+        $this->createOneTimeLoginTokenRecord(now()->subDays(2));
+        $this->createOneTimeLoginTokenRecord(now()->subMinutes(3));
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
@@ -26,9 +26,10 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
     public function test_it_does_not_delete_non_expired_tokens()
     {
-        UserLoginToken::factory()->create(['created_at' => now()->subMinute()]);
-        UserLoginToken::factory()->create(['created_at' => now()->subMinutes(2)]);
-        UserLoginToken::factory()->create();
+        $this->createOneTimeLoginTokenRecord(now()->subMinute());
+        $this->createOneTimeLoginTokenRecord(now()->subMinutes(2));
+        $this->createOneTimeLoginTokenRecord();
+
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
@@ -39,7 +40,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
     {
         $this->app['config']->set('otl.route.expiration', 1);
 
-        UserLoginToken::factory()->create(['created_at' => now()->subMinute()]);
+        $this->createOneTimeLoginTokenRecord(now()->subMinute());
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
@@ -50,7 +51,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
     {
         $this->app['config']->set('otl.route.expiration', 60 * 60 * 24 * 7);
 
-        UserLoginToken::factory()->create(['created_at' => now()->subDays(6)]);
+        $this->createOneTimeLoginTokenRecord(now()->subDays(6));
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 

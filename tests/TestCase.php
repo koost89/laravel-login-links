@@ -2,7 +2,9 @@
 
 namespace Koost89\UserLogin\Tests;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
 use Koost89\UserLogin\UserLoginServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -15,7 +17,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->setUpDatabase();
+        $this->setUpDatabase($this->app);
     }
 
     protected function getPackageProviders($app): array
@@ -25,14 +27,33 @@ class TestCase extends Orchestra
         ];
     }
 
-    protected function setUpDatabase(): void
+    protected function setUpDatabase($app): void
     {
-        $this->loadLaravelMigrations();
+        $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('email');
+            $table->softDeletes();
+        });
 
         $this->loadMigrationsFrom('database/migrations');
 
-        User::factory()
-            ->count(5)
-            ->create();
+        User::create(['email' => 'test@test.com']);
+        User::create(['email' => 'test2@test.com']);
+        User::create(['email' => 'test3@test.com']);
+        User::create(['email' => 'test4@test.com']);
+        User::create(['email' => 'test5@test.com']);
+    }
+
+    protected function createOneTimeLoginTokenRecord($created_at = null, $url = 'test.com')
+    {
+        if (! $created_at) {
+            $created_at = now();
+        }
+
+        (new UserLoginToken())->forceFill([
+            'url' => $url,
+            'created_at' => $created_at
+        ])->save();
+
     }
 }
