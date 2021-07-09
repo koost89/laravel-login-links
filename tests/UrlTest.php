@@ -28,7 +28,7 @@ class UrlTest extends TestCase
 
         $url = (new UserLogin())->create($user->id);
 
-        $badUrl = Str::replace('auth_id=' . $user->id, 'auth_id=' . $otherUser->id, $url);
+        $badUrl = str_replace('auth_id=' . $user->id, 'auth_id=' . $otherUser->id, $url);
 
         $this->get($badUrl)
             ->assertForbidden();
