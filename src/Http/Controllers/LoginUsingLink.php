@@ -11,7 +11,6 @@ class LoginUsingLink extends Controller
 {
     public function __invoke(Request $request, UserLogin $otlService): RedirectResponse
     {
-
         if ($otlService->shouldExpireAfterVisit()) {
             $otlService->ensureUserLoginTokenExists($request->getSchemeAndHttpHost() . $request->getRequestUri());
         }

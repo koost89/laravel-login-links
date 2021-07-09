@@ -56,5 +56,4 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->assertDatabaseCount('user_login_tokens', 1);
     }
-
 }

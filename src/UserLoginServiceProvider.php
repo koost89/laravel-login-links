@@ -10,11 +10,11 @@ class UserLoginServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('user-login', function($app) {
+        $this->app->bind('user-login', function ($app) {
             return new UserLogin();
         });
-
     }
+
     public function boot(): void
     {
         if (app()->runningInConsole()) {
