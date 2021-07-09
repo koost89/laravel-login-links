@@ -2,7 +2,6 @@
 
 namespace Koost89\UserLogin\Tests;
 
-use Illuminate\Support\Str;
 use Koost89\UserLogin\Tests\TestClasses\User;
 use Koost89\UserLogin\UserLogin;
 
