@@ -3,7 +3,6 @@
 namespace Koost89\UserLogin\Tests\Commands;
 
 use Koost89\UserLogin\Commands\UserLoginTokensCleanupCommand;
-use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestCase;
 
 class UserLoginTokensCleanupCommandTest extends TestCase
