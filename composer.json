@@ -1,6 +1,6 @@
 {
     "name": "koost89/laravel-otl",
-    "description": "This package allows you to generate a one time login link to log in as a user",
+    "description": "Generate a (one time) login link to log in as a user",
     "keywords": [
         "koost89",
         "laravel",
@@ -22,17 +22,18 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
-        "illuminate/support": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/auth": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/console": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/container": "^6.0 || ^7.0 || ^8.0",
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0",
+        "illuminate/auth": "^6.0|^7.0|^8.0",
+        "illuminate/console": "^6.0|^7.0|^8.0",
+        "illuminate/container": "^6.0|^7.0|^8.0",
+        "illuminate/database": "^6.0|^7.0|^8.0",
         "nesbot/carbon": "^2.35"
     },
     "require-dev": {
-        "nunomaduro/collision": "^3.0 || ^5.0",
-        "orchestra/testbench": "^4.9 || ^5.8 || ^6.3",
-        "phpunit/phpunit": "^9.3"
+        "nunomaduro/collision": "^3.0|^5.3",
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^8.0|^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -47,7 +48,7 @@
     },
     "scripts": {
         "psalm": "vendor/bin/psalm",
-        "test": "./vendor/bin/testbench package:test --no-coverage",
+        "test": "./vendor/bin/testbench package:test",
         "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/testbench package:test --coverage-html coverage"
     },
     "config": {
