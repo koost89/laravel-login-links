@@ -3,6 +3,7 @@
 namespace Koost89\UserLogin\Tests\Commands;
 
 use Koost89\UserLogin\Commands\UserLoginTokensCleanupCommand;
+use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestCase;
 
 class UserLoginTokensCleanupCommandTest extends TestCase
@@ -20,7 +21,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
-        $this->assertDatabaseCount('user_login_tokens', 0);
+        $this->assertEquals(0, UserLoginToken::count());
     }
 
     public function test_it_does_not_delete_non_expired_tokens()
@@ -32,7 +33,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
-        $this->assertDatabaseCount('user_login_tokens', 3);
+        $this->assertEquals(3, UserLoginToken::count());
     }
 
     public function test_it_uses_the_config_for_expiration_threshold()
@@ -43,7 +44,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
-        $this->assertDatabaseCount('user_login_tokens', 0);
+        $this->assertEquals(0, UserLoginToken::count());
     }
 
     public function test_the_expiration_can_support_longer_times()
@@ -54,6 +55,6 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->artisan(UserLoginTokensCleanupCommand::class);
 
-        $this->assertDatabaseCount('user_login_tokens', 1);
+        $this->assertEquals(1, UserLoginToken::count());
     }
 }

@@ -32,6 +32,8 @@ class TestCase extends Orchestra
             $table->softDeletes();
         });
 
+        $app['config']->set('auth.providers.users.model', User::class);
+
         $this->loadMigrationsFrom('database/migrations');
 
         User::create(['email' => 'test@test.com']);

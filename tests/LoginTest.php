@@ -2,6 +2,7 @@
 
 namespace Koost89\UserLogin\Tests;
 
+use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
 use Koost89\UserLogin\UserLogin;
 
@@ -27,7 +28,7 @@ class LoginTest extends TestCase
 
         (new UserLogin())->create($user->id);
 
-        $this->assertDatabaseCount('user_login_tokens', 1);
+        $this->assertEquals(1, UserLoginToken::count());
     }
 
     public function test_if_configured_it_can_expire_after_a_single_login()
@@ -41,7 +42,7 @@ class LoginTest extends TestCase
         $this->get($url)
             ->assertRedirect('/');
 
-        $this->assertDatabaseCount('user_login_tokens', 0);
+        $this->assertEquals(0, UserLoginToken::count());
     }
 
     public function test_the_user_cannot_login_after_the_link_expires()
