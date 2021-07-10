@@ -16,6 +16,7 @@ class LoginLink
     public function create($id, array $extraParams = []): string
     {
         $model = $this->getUser($id);
+
         $url = $this->generateUrl(array_merge($extraParams, ['auth_id' => $model->getAuthIdentifier()]));
 
         if ($this->shouldExpireAfterVisit()) {

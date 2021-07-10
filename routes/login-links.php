@@ -7,7 +7,7 @@ Route::get(config('login-links.route.path'), Http\Controllers\LoginUsingLink::cl
     ->middleware(
         array_merge(
             config('login-links.route.additional_middleware'),
-            [Http\Middleware\HasValidSignature::class, 'web']
+            ['signed', 'web']
         )
     )
     ->name('login-links.login');
