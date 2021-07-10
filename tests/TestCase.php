@@ -34,11 +34,10 @@ class TestCase extends Orchestra
         ]);
 
         $app['config']->set('auth.providers.users.model', User::class);
-
     }
+
     protected function setUpDatabase($app): void
     {
-
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
