@@ -1,54 +1,90 @@
-# This package allows you to generate a one time login link to log in as a user
+# (One time) User login links for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/koost89/laravel-otl.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-otl)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-otl/run-tests?label=tests)](https://github.com/koost89/laravel-otl/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-otl/Check%20&%20fix%20styling?label=code%20style)](https://github.com/koost89/laravel-otl/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/koost89/laravel-otl.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-otl)
-
----
-This repo can be used as to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this laravel-otl
-2. Run "./configure-laravel-otl.sh" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Check%20&%20fix%20styling/main?label=code%20style)](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Check%20&%20fix%20styling/main?label=code%20style)
+[![Total Downloads](https://img.shields.io/packagist/dt/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-otl.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-otl)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require koost89/laravel-otl
+composer require koost89/laravel-login-links
 ```
 
-You can publish and run the migrations with:
 
+The migrations are needed to make sure the generated URLs are only visitable once.
+This is done by creating a record for the generated URL and deleting it once the user is logged in.
+This flow is highly recommended.
+
+If you do not want the URL to expire after a single login, you can edit the config file supplied with this package.
+Simply set `'expire_after_visit'` to `false` in the config supplied with this package.
+
+
+You can publish the migration file with:
 ```bash
-php artisan vendor:publish --provider="Koost89\UserLogin\UserLoginServiceProvider" --tag="laravel-otl-migrations"
+php artisan vendor:publish --provider="Koost89\UserLogin\LoginLinkServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Koost89\UserLogin\UserLoginServiceProvider" --tag="laravel-otl-config"
+php artisan vendor:publish --provider="Koost89\UserLogin\LoginLinkServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    /**
+     * In this file you can configure parts of the login.
+     * It uses Laravels built in signedRoute functionality to generate signedURLs for users.
+     */
+    'route' => [
+        /*
+         * Here you can specify the path which is used to generate and authenticate the user on.
+         * The finished URL should look like domain.tld/<path>
+         */
+        'path' => '/uli',
+
+        /*
+         * The amount (in seconds) it takes for the generated URL to expire.
+         */
+        'expiration' => 60 * 2,
+
+        /*
+         * The path the user gets redirected to after the login has finished.
+         */
+        'redirect_after_login' => '/',
+
+        /*
+         * If the token should expire after the first visit.
+         * If set to true you must run the migration for the user_login_tokens table.
+         * If set to false the link can be used until it is expired.
+         */
+        'expire_after_visit' => true,
+    ],
+
+    'auth' => [
+        /*
+         * If you are using a different guard, you can specify it below.
+         */
+        'guard' => 'web',
+
+        /*
+         * Dictates if the application should remember the user.
+         */
+        'remember' => true,
+
+        /*
+         * The response code that should be returned to the user when the signature is invalid.
+         * This can be useful if you want it to look like the page has not been found for example.
+         */
+        'invalid_signature_response' => 403,
+    ]
 ];
 ```
 
@@ -56,8 +92,13 @@ return [
 
 ```php
 $user = User::first();
+
+// Normal class usage
 $userLogin = new Koost89\UserLogin();
-echo $userLogin->create($user->id);
+$url = $userLogin->create($user->id);
+
+// You can also use the Facade
+
 ```
 
 ## Testing

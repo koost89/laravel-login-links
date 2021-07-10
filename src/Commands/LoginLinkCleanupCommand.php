@@ -5,7 +5,7 @@ namespace Koost89\UserLogin\Commands;
 use Illuminate\Console\Command;
 use Koost89\UserLogin\Models\UserLoginToken;
 
-class UserLoginTokensCleanupCommand extends Command
+class LoginLinkCleanupCommand extends Command
 {
     public $signature = 'uli:cleanup';
 
@@ -17,7 +17,7 @@ class UserLoginTokensCleanupCommand extends Command
             ->where(
                 'created_at',
                 '<',
-                now()->subSeconds(config('otl.route.expiration', 60 * 2))
+                now()->subSeconds(config('login-links.route.expiration'))
             )
             ->delete();
 

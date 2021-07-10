@@ -3,15 +3,15 @@
 namespace Koost89\UserLogin\Tests;
 
 use Koost89\UserLogin\Tests\TestClasses\User;
-use Koost89\UserLogin\UserLogin;
+use Koost89\UserLogin\LoginLink;
 
 class UrlTest extends TestCase
 {
     public function test_it_generates_a_signed_url()
     {
-        $url = (new UserLogin())->create(1);
+        $url = (new LoginLink())->create(1);
 
-        $this->assertStringContainsString("/otl", $url);
+        $this->assertStringContainsString(config('login-links.route.path'), $url);
         $this->assertStringContainsString("auth_id=1", $url);
         $this->assertStringContainsString('expires=', $url);
         $this->assertStringContainsString('signature=', $url);
@@ -25,7 +25,7 @@ class UrlTest extends TestCase
             ->where('id', '!=', $user->id)
             ->first();
 
-        $url = (new UserLogin())->create($user->id);
+        $url = (new LoginLink())->create($user->id);
 
         $badUrl = str_replace('auth_id=' . $user->id, 'auth_id=' . $otherUser->id, $url);
 

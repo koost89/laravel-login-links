@@ -10,7 +10,7 @@ return [
          * Here you can specify the path which is used to generate and authenticate the user on.
          * The finished URL should look like domain.tld/<path>
          */
-        'path' => '/otl',
+        'path' => '/uli',
 
         /*
          * The amount (in seconds) it takes for the generated URL to expire.

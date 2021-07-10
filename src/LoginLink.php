@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Koost89\UserLogin\Models\UserLoginToken;
 
-class UserLogin
+class LoginLink
 {
     private $currentUserLoginToken;
 
@@ -28,11 +28,11 @@ class UserLogin
 
     public function login($auth_id)
     {
-        $guard = config('otl.auth.guard', 'web');
+        $guard = config('login-links.auth.guard');
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
-                ->login($this->getUser($auth_id), config('otl.auth.remember'));
+                ->login($this->getUser($auth_id), config('login-links.auth.remember'));
         }
 
         if ($this->shouldExpireAfterVisit()) {
@@ -51,7 +51,7 @@ class UserLogin
 
     public function getUser($id): Authenticatable
     {
-        $model = Auth::guard(config('otl.auth.guard', 'web'))
+        $model = Auth::guard(config('login-links.auth.guard'))
             ->getProvider()
             ->retrieveById($id);
 
@@ -69,16 +69,16 @@ class UserLogin
 
     public function getExpiration(): Carbon
     {
-        return now()->addSeconds(config('otl.route.expiration', 60 * 2));
+        return now()->addSeconds(config('login-links.route.expiration'));
     }
 
     public function shouldExpireAfterVisit()
     {
-        return config('otl.route.expire_after_visit', false);
+        return config('login-links.route.expire_after_visit');
     }
 
     protected function generateUrl(array $params): string
     {
-        return URL::temporarySignedRoute('otl.login', $this->getExpiration(), $params);
+        return URL::temporarySignedRoute('login-links.login', $this->getExpiration(), $params);
     }
 }

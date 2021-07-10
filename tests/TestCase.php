@@ -5,7 +5,7 @@ namespace Koost89\UserLogin\Tests;
 use Illuminate\Database\Schema\Blueprint;
 use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
-use Koost89\UserLogin\UserLoginServiceProvider;
+use Koost89\UserLogin\LoginLinkServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -20,7 +20,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            UserLoginServiceProvider::class,
+            LoginLinkServiceProvider::class,
         ];
     }
 
@@ -41,6 +41,7 @@ class TestCase extends Orchestra
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
+            $table->string('remember_token')->nullable();
             $table->softDeletes();
         });
 

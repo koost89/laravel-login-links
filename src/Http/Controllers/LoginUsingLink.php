@@ -5,11 +5,11 @@ namespace Koost89\UserLogin\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Koost89\UserLogin\UserLogin;
+use Koost89\UserLogin\LoginLink;
 
 class LoginUsingLink extends Controller
 {
-    public function __invoke(Request $request, UserLogin $otlService): RedirectResponse
+    public function __invoke(Request $request, LoginLink $otlService): RedirectResponse
     {
         if ($otlService->shouldExpireAfterVisit()) {
             $otlService->ensureUserLoginTokenExists($request->getSchemeAndHttpHost() . $request->getRequestUri());
@@ -17,6 +17,6 @@ class LoginUsingLink extends Controller
 
         $otlService->login($request->auth_id);
 
-        return redirect()->to(config('otl.route.redirect_after_login'));
+        return redirect()->to(config('login-links.route.redirect_after_login'));
     }
 }

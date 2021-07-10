@@ -1,13 +1,13 @@
 <?php
 
-namespace Koost89\UserLogin;
+namespace Koost89\UserLogin\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class UserLoginFacade extends Facade
+class LoginLink extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'user-login';
+        return 'login-link';
     }
 }

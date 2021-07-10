@@ -3,15 +3,15 @@
 namespace Koost89\UserLogin\Commands;
 
 use Illuminate\Console\Command;
-use Koost89\UserLogin\UserLogin;
+use Koost89\UserLogin\LoginLink;
 
-class UserLoginTokenGenerateCommand extends Command
+class LoginLinkCreateCommand extends Command
 {
-    public $signature = 'uli:generate {id}';
+    public $signature = 'uli:create {id}';
 
     public $description = 'Generate a signed login url for a specific user.';
 
-    public function handle(UserLogin $UserLogin): int
+    public function handle(LoginLink $UserLogin): int
     {
         $url = $UserLogin->create($this->argument('id'));
 
