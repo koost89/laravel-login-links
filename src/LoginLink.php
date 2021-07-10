@@ -11,12 +11,11 @@ use Koost89\UserLogin\Models\UserLoginToken;
 
 class LoginLink
 {
-    private $currentUserLoginToken;
+    private $currentLoginToken;
 
     public function create($id, array $extraParams = []): string
     {
         $model = $this->getUser($id);
-
         $url = $this->generateUrl(array_merge($extraParams, ['auth_id' => $model->getAuthIdentifier()]));
 
         if ($this->shouldExpireAfterVisit()) {
@@ -42,11 +41,11 @@ class LoginLink
 
     public function deleteCurrentUserLoginToken(): void
     {
-        if (! $this->currentUserLoginToken) {
+        if (! $this->currentLoginToken) {
             throw new \LogicException("UserLoginToken is not available in service");
         }
 
-        $this->currentUserLoginToken->delete();
+        $this->currentLoginToken->delete();
     }
 
     public function getUser($id): Authenticatable
@@ -64,7 +63,7 @@ class LoginLink
 
     public function ensureUserLoginTokenExists(string $url): void
     {
-        $this->currentUserLoginToken = UserLoginToken::where('url', $url)->firstOrFail();
+        $this->currentLoginToken = UserLoginToken::where('url', $url)->firstOrFail();
     }
 
     public function getExpiration(): Carbon

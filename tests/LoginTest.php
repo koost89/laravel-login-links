@@ -14,10 +14,19 @@ class LoginTest extends TestCase
 
         $url = (new LoginLink())->create($user->id);
 
-        $this->get($url)
-            ->assertRedirect('/');
+        $this->get($url);
 
         $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_it_redirects_after_login()
+    {
+        $user = User::inRandomOrder()->first();
+
+        $url = (new LoginLink())->create($user->id);
+
+        $this->get($url)->assertRedirect(config('login-links.route.redirect_after_login'));
+
     }
 
     public function test_it_stores_a_token_when_expire_after_visit_is_true()
@@ -39,8 +48,7 @@ class LoginTest extends TestCase
 
         $url = (new LoginLink())->create($user->id);
 
-        $this->get($url)
-            ->assertRedirect('/');
+        $this->get($url);
 
         $this->assertEquals(0, UserLoginToken::count());
     }
@@ -53,7 +61,8 @@ class LoginTest extends TestCase
 
         $url = (new LoginLink())->create($user->id);
 
-        $this->get($url)
+        $this->followingRedirects()
+            ->get($url)
             ->assertForbidden();
 
         $this->assertGuest();

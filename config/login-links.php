@@ -29,6 +29,14 @@ return [
          * If set to false the link can be used until it is expired.
          */
         'expire_after_visit' => true,
+
+        /*
+         * Extra middleware you would like to add to the route
+         */
+        'additional_middleware' => [
+            // 'guest'
+            // Middleware\AdminUser::class,
+        ]
     ],
 
     'auth' => [
@@ -40,7 +48,7 @@ return [
         /*
          * Dictates if the application should remember the user.
          */
-        'remember' => true,
+        'remember' => false,
 
         /*
          * The response code that should be returned to the user when the signature is invalid.

@@ -54,7 +54,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Koost89\\UserLogin\\UserLoginServiceProvider"
+                "Koost89\\UserLogin\\LoginLinkServiceProvider"
             ],
             "aliases": {
                 "UserLogin": "Koost89\\UserLogin\\Facades\\UserLogin"

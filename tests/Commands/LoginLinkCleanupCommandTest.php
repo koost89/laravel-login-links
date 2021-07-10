@@ -21,10 +21,9 @@ class LoginLinkCleanupCommandTest extends TestCase
 
     public function test_it_does_not_delete_non_expired_tokens()
     {
+        $this->createOneTimeLoginTokenRecord();
         $this->createOneTimeLoginTokenRecord(now()->subMinute());
         $this->createOneTimeLoginTokenRecord(now()->subMinutes(2));
-        $this->createOneTimeLoginTokenRecord();
-
 
         Artisan::call(LoginLinkCleanupCommand::class);
 

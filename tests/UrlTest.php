@@ -34,4 +34,22 @@ class UrlTest extends TestCase
 
         $this->assertGuest();
     }
+
+    public function test_the_link_can_have_extra_parameters()
+    {
+        $user = User::inRandomOrder()->first();
+        $url = (new LoginLink())->create($user->id, ['extra_param' => 1]);
+
+        $this->assertStringContainsString('extra_param=1', $url);
+    }
+
+    public function test_the_link_is_still_valid_with_an_extra_parameter()
+    {
+        $user = User::inRandomOrder()->first();
+        $url = (new LoginLink())->create($user->id, ['extra_param' => 1]);
+
+        $this->get($url);
+
+        $this->assertAuthenticatedAs($user);
+    }
 }
