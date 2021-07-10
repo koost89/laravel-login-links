@@ -24,17 +24,31 @@ class TestCase extends Orchestra
         ];
     }
 
+    public function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('database.default', 'sqlite');
+        $app['config']->set('database.connections.sqlite', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+
+        $app['config']->set('auth.providers.users.model', User::class);
+
+    }
     protected function setUpDatabase($app): void
     {
+
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
             $table->softDeletes();
         });
 
-        $app['config']->set('auth.providers.users.model', User::class);
+        include_once __DIR__ . '/../database/migrations/2021_07_07_120000_create_user_login_tokens_table.php';
 
-        $this->loadMigrationsFrom('database/migrations');
+        (new \CreateUserLoginTokensTable())->up();
+
 
         User::create(['email' => 'test@test.com']);
         User::create(['email' => 'test2@test.com']);

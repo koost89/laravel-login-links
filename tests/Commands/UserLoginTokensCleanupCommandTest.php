@@ -2,24 +2,19 @@
 
 namespace Koost89\UserLogin\Tests\Commands;
 
+use Illuminate\Support\Facades\Artisan;
 use Koost89\UserLogin\Commands\UserLoginTokensCleanupCommand;
 use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestCase;
 
 class UserLoginTokensCleanupCommandTest extends TestCase
 {
-    public function test_the_command_can_execute()
-    {
-        $this->artisan(UserLoginTokensCleanupCommand::class)
-            ->assertExitCode(0);
-    }
-
     public function test_it_successfully_deletes_expired_tokens()
     {
         $this->createOneTimeLoginTokenRecord(now()->subDays(2));
         $this->createOneTimeLoginTokenRecord(now()->subMinutes(3));
 
-        $this->artisan(UserLoginTokensCleanupCommand::class);
+        Artisan::call(UserLoginTokensCleanupCommand::class);
 
         $this->assertEquals(0, UserLoginToken::count());
     }
@@ -31,7 +26,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
         $this->createOneTimeLoginTokenRecord();
 
 
-        $this->artisan(UserLoginTokensCleanupCommand::class);
+        Artisan::call(UserLoginTokensCleanupCommand::class);
 
         $this->assertEquals(3, UserLoginToken::count());
     }
@@ -42,7 +37,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->createOneTimeLoginTokenRecord(now()->subMinute());
 
-        $this->artisan(UserLoginTokensCleanupCommand::class);
+        Artisan::call(UserLoginTokensCleanupCommand::class);
 
         $this->assertEquals(0, UserLoginToken::count());
     }
@@ -53,7 +48,7 @@ class UserLoginTokensCleanupCommandTest extends TestCase
 
         $this->createOneTimeLoginTokenRecord(now()->subDays(6));
 
-        $this->artisan(UserLoginTokensCleanupCommand::class);
+        Artisan::call(UserLoginTokensCleanupCommand::class);
 
         $this->assertEquals(1, UserLoginToken::count());
     }
