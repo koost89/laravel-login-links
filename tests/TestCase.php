@@ -3,9 +3,9 @@
 namespace Koost89\UserLogin\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Koost89\UserLogin\LoginLinkServiceProvider;
 use Koost89\UserLogin\Models\UserLoginToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
-use Koost89\UserLogin\LoginLinkServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

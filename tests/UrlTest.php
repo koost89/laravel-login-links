@@ -2,8 +2,8 @@
 
 namespace Koost89\UserLogin\Tests;
 
-use Koost89\UserLogin\Tests\TestClasses\User;
 use Koost89\UserLogin\LoginLink;
+use Koost89\UserLogin\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {

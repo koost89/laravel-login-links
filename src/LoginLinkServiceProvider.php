@@ -3,8 +3,8 @@
 namespace Koost89\UserLogin;
 
 use Illuminate\Support\ServiceProvider;
-use Koost89\UserLogin\Commands\LoginLinkCreateCommand;
 use Koost89\UserLogin\Commands\LoginLinkCleanupCommand;
+use Koost89\UserLogin\Commands\LoginLinkCreateCommand;
 
 class LoginLinkServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,6 @@ class LoginLinkServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-
         $this->mergeConfigFrom(
             __DIR__.'/../config/login-links.php',
             'login-links'
