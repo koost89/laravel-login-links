@@ -26,7 +26,6 @@ class LoginTest extends TestCase
         $url = (new LoginLink())->create($user->id);
 
         $this->get($url)->assertRedirect(config('login-links.route.redirect_after_login'));
-
     }
 
     public function test_it_stores_a_token_when_expire_after_visit_is_true()

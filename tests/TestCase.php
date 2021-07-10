@@ -35,7 +35,6 @@ class TestCase extends Orchestra
 
         $app['config']->set('auth.providers.users.model', User::class);
 //        $app['config']->set('login-links.route.additional_middleware', ['guest']);
-
     }
 
     protected function setUpDatabase($app): void
