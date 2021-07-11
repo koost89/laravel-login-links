@@ -18,7 +18,7 @@ class LoginLinkCreateCommand extends Command
 
         $authenticatable = (new $class)->findOrFail($id);
 
-        $url = $UserLogin->create($authenticatable);
+        $url = $UserLogin->generate($authenticatable);
 
         $this->info("Your login link: $url");
 

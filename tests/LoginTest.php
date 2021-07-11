@@ -2,8 +2,8 @@
 
 namespace Koost89\UserLogin\Tests;
 
-use Koost89\UserLogin\LoginLink;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Facades\LoginLink;
+use Koost89\UserLogin\Models\LoginLinkToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
 
 class LoginTest extends TestCase
@@ -12,7 +12,7 @@ class LoginTest extends TestCase
     {
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user);
+        $url = LoginLink::generate($user);
 
         $this->get($url);
 
@@ -23,7 +23,7 @@ class LoginTest extends TestCase
     {
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user);
+        $url = LoginLink::generate($user);
 
         $this->get($url)->assertRedirect(config('login-links.route.redirect_after_login'));
     }
@@ -34,9 +34,9 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        (new LoginLink())->create($user);
+        LoginLink::generate($user);
 
-        $this->assertEquals(1, UserLoginToken::count());
+        $this->assertEquals(1, LoginLinkToken::count());
     }
 
     public function test_if_configured_it_can_expire_after_a_single_login()
@@ -45,11 +45,11 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user);
+        $url = LoginLink::generate($user);
 
         $this->get($url);
 
-        $this->assertEquals(0, UserLoginToken::count());
+        $this->assertEquals(0, LoginLinkToken::count());
     }
 
     public function test_the_user_cannot_login_after_the_link_expires()
@@ -58,7 +58,7 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user);
+        $url = LoginLink::generate($user);
 
         $this->followingRedirects()
             ->get($url)

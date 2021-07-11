@@ -7,14 +7,14 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Models\LoginLinkToken;
 
 class LoginLink
 {
     private $currentLoginToken;
     private $authenticatable;
 
-    public function create($authenticatable): string
+    public function generate($authenticatable): string
     {
         $this->authenticatable = $authenticatable;
 
@@ -24,7 +24,7 @@ class LoginLink
         ]);
 
         if ($this->shouldExpireAfterVisit()) {
-            UserLoginToken::create(['url' => $url]);
+            LoginLinkToken::create(['url' => $url]);
         }
 
         return $url;
@@ -68,7 +68,7 @@ class LoginLink
 
     public function ensureUserLoginTokenExists(string $url): void
     {
-        $this->currentLoginToken = UserLoginToken::where('url', $url)->firstOrFail();
+        $this->currentLoginToken = LoginLinkToken::where('url', $url)->firstOrFail();
     }
 
     public function getExpiration(): Carbon

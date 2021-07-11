@@ -4,7 +4,7 @@ namespace Koost89\UserLogin\Tests\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 use Koost89\UserLogin\Commands\LoginLinkCleanupCommand;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Models\LoginLinkToken;
 use Koost89\UserLogin\Tests\TestCase;
 
 class LoginLinkCleanupCommandTest extends TestCase
@@ -16,7 +16,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
-        $this->assertEquals(0, UserLoginToken::count());
+        $this->assertEquals(0, LoginLinkToken::count());
     }
 
     public function test_it_does_not_delete_non_expired_tokens()
@@ -27,7 +27,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
-        $this->assertEquals(3, UserLoginToken::count());
+        $this->assertEquals(3, LoginLinkToken::count());
     }
 
     public function test_it_uses_the_config_for_expiration_threshold()
@@ -38,7 +38,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
-        $this->assertEquals(0, UserLoginToken::count());
+        $this->assertEquals(0, LoginLinkToken::count());
     }
 
     public function test_the_expiration_can_support_longer_times()
@@ -49,6 +49,6 @@ class LoginLinkCleanupCommandTest extends TestCase
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
-        $this->assertEquals(1, UserLoginToken::count());
+        $this->assertEquals(1, LoginLinkToken::count());
     }
 }

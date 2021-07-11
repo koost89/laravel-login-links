@@ -3,7 +3,7 @@
 namespace Koost89\UserLogin\Commands;
 
 use Illuminate\Console\Command;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Models\LoginLinkToken;
 
 class LoginLinkCleanupCommand extends Command
 {
@@ -13,7 +13,7 @@ class LoginLinkCleanupCommand extends Command
 
     public function handle(): int
     {
-        UserLoginToken::query()
+        LoginLinkToken::query()
             ->where(
                 'created_at',
                 '<',

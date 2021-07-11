@@ -3,11 +3,11 @@
 namespace Koost89\UserLogin\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Models\LoginLinkToken;
 
 class UserLoginTokenFactory extends Factory
 {
-    protected $model = UserLoginToken::class;
+    protected $model = LoginLinkToken::class;
 
     public function definition(): array
     {

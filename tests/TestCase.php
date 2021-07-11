@@ -4,7 +4,7 @@ namespace Koost89\UserLogin\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
 use Koost89\UserLogin\LoginLinkServiceProvider;
-use Koost89\UserLogin\Models\UserLoginToken;
+use Koost89\UserLogin\Models\LoginLinkToken;
 use Koost89\UserLogin\Tests\TestClasses\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -64,7 +64,7 @@ class TestCase extends Orchestra
             $created_at = now();
         }
 
-        (new UserLoginToken())->forceFill([
+        (new LoginLinkToken())->forceFill([
             'url' => $url,
             'created_at' => $created_at,
         ])->save();

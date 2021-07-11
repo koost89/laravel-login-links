@@ -8,7 +8,7 @@ class CreateUserLoginTokensTable extends Migration
 {
     public function up()
     {
-        Schema::create('user_login_tokens', function (Blueprint $table) {
+        Schema::create('login_link_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('url');
             $table->timestamps();
@@ -17,6 +17,6 @@ class CreateUserLoginTokensTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('user_login_tokens');
+        Schema::dropIfExists('login_link_tokens');
     }
 }

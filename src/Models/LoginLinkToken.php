@@ -5,7 +5,7 @@ namespace Koost89\UserLogin\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserLoginToken extends Model
+class LoginLinkToken extends Model
 {
     protected $fillable = ['url'];
 }

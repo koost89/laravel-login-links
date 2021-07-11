@@ -33,7 +33,7 @@ Then to use it in your application, simply specify a user to create a login link
 use Koost89\UserLogin\Facades\LoginLink;
 
 $user = User::first();
-$link = LoginLink::create($user);
+$link = LoginLink::generate($user);
 ```
 
 You can also use the command
