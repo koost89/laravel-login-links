@@ -10,7 +10,7 @@ class LoginLinkServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('login-links', function ($app) {
+        $this->app->bind('login-link', function ($app) {
             return new LoginLink();
         });
     }
@@ -25,11 +25,11 @@ class LoginLinkServiceProvider extends ServiceProvider
         if (app()->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/' => database_path('migrations/'),
-            ], 'migrations');
+            ], 'login-links-migrations');
 
             $this->publishes([
                 __DIR__ . '/../config/login-links.php' => config_path("login-links.php"),
-            ], "config");
+            ], "login-links-config");
         }
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/login-links.php');
