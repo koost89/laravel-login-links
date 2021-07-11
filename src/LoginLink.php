@@ -90,13 +90,13 @@ class LoginLink
     private function toTypeString(): string
     {
         return  base64_encode(
-            Str::replace('\\', '_', get_class($this->authenticatable))
+            str_replace('\\', '_', get_class($this->authenticatable))
         );
     }
 
     private function fromTypeString($string): string
     {
-        return Str::replace('_', '\\', base64_decode($string));
+        return str_replace('_', '\\', base64_decode($string));
     }
 
     private function getGuardFromAuthType($authType)
