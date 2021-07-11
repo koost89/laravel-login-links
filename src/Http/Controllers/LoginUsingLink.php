@@ -1,11 +1,11 @@
 <?php
 
-namespace Koost89\UserLogin\Http\Controllers;
+namespace Koost89\LoginLinks\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Koost89\UserLogin\LoginLink;
+use Koost89\LoginLinks\LoginLink;
 
 class LoginUsingLink extends Controller
 {

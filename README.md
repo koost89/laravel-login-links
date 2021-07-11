@@ -16,7 +16,7 @@ In your User (or other authenticatable) class add the `CanLoginWithLink` trait.
 ```php
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Koost89\UserLogin\Traits\CanLoginWithLink;
+use Koost89\LoginLinks\Traits\CanLoginWithLink;
 
 class User extends Authenticatable
 {
@@ -30,7 +30,7 @@ class User extends Authenticatable
 Then to use it in your application, simply specify a user to create a login link for.
 
 ```php
-use Koost89\UserLogin\Facades\LoginLink;
+use Koost89\LoginLinks\Facades\LoginLink;
 
 $user = User::first();
 $link = LoginLink::generate($user);
@@ -130,10 +130,11 @@ If your application uses multiple guards with different models, you can change w
 should be used for a specific model by override the `getGuardName()` method.
 
 For example:
+
 ```php
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Koost89\UserLogin\Traits\CanLoginWithLink;
+use Koost89\LoginLinks\Traits\CanLoginWithLink;
 
 class User extends Authenticatable
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Koost89\UserLogin\Facades;
+namespace Koost89\LoginLinks\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

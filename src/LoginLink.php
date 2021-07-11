@@ -1,13 +1,13 @@
 <?php
 
-namespace Koost89\UserLogin;
+namespace Koost89\LoginLinks;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-use Koost89\UserLogin\Models\LoginLinkToken;
+use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class LoginLink
 {

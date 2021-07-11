@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Commands;
+namespace Koost89\LoginLinks\Commands;
 
 use Illuminate\Console\Command;
-use Koost89\UserLogin\LoginLink;
+use Koost89\LoginLinks\LoginLink;
 
 class LoginLinkCreateCommand extends Command
 {

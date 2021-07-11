@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Koost89\\UserLogin\\": "src",
-            "Koost89\\UserLogin\\Database\\Factories\\": "database/factories/"
+            "Koost89\\LoginLinks\\": "src",
+            "Koost89\\LoginLinks\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Koost89\\UserLogin\\Tests\\": "tests"
+            "Koost89\\LoginLinks\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Koost89\\UserLogin\\LoginLinkServiceProvider"
+                "Koost89\\LoginLinks\\LoginLinkServiceProvider"
             ],
             "aliases": {
-                "UserLogin": "Koost89\\UserLogin\\Facades\\UserLogin"
+                "UserLogin": "Koost89\\LoginLinks\\Facades\\UserLogin"
             }
         }
     },

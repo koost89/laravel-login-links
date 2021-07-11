@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Tests;
+namespace Koost89\LoginLinks\Tests;
 
-use Koost89\UserLogin\LoginLink;
-use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\LoginLinks\LoginLink;
+use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {

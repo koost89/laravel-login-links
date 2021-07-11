@@ -1,11 +1,11 @@
 <?php
 
-namespace Koost89\UserLogin\Tests\Commands;
+namespace Koost89\LoginLinks\Tests\Commands;
 
 use Illuminate\Support\Facades\Artisan;
-use Koost89\UserLogin\Commands\LoginLinkCleanupCommand;
-use Koost89\UserLogin\Models\LoginLinkToken;
-use Koost89\UserLogin\Tests\TestCase;
+use Koost89\LoginLinks\Commands\LoginLinkCleanupCommand;
+use Koost89\LoginLinks\Models\LoginLinkToken;
+use Koost89\LoginLinks\Tests\TestCase;
 
 class LoginLinkCleanupCommandTest extends TestCase
 {

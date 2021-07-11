@@ -1,13 +1,13 @@
 <?php
 
-namespace Koost89\UserLogin\Tests\Commands;
+namespace Koost89\LoginLinks\Tests\Commands;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Artisan;
-use Koost89\UserLogin\Commands\LoginLinkCreateCommand;
-use Koost89\UserLogin\Models\LoginLinkToken;
-use Koost89\UserLogin\Tests\TestCase;
-use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\LoginLinks\Commands\LoginLinkCreateCommand;
+use Koost89\LoginLinks\Models\LoginLinkToken;
+use Koost89\LoginLinks\Tests\TestCase;
+use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class LoginLinkCreateCommandTest extends TestCase
 {

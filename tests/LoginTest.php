@@ -1,10 +1,10 @@
 <?php
 
-namespace Koost89\UserLogin\Tests;
+namespace Koost89\LoginLinks\Tests;
 
-use Koost89\UserLogin\Facades\LoginLink;
-use Koost89\UserLogin\Models\LoginLinkToken;
-use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\LoginLinks\Facades\LoginLink;
+use Koost89\LoginLinks\Models\LoginLinkToken;
+use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class LoginTest extends TestCase
 {

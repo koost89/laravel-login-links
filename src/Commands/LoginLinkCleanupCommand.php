@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Commands;
+namespace Koost89\LoginLinks\Commands;
 
 use Illuminate\Console\Command;
-use Koost89\UserLogin\Models\LoginLinkToken;
+use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class LoginLinkCleanupCommand extends Command
 {

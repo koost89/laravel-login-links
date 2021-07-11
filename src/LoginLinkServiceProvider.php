@@ -1,10 +1,10 @@
 <?php
 
-namespace Koost89\UserLogin;
+namespace Koost89\LoginLinks;
 
 use Illuminate\Support\ServiceProvider;
-use Koost89\UserLogin\Commands\LoginLinkCleanupCommand;
-use Koost89\UserLogin\Commands\LoginLinkCreateCommand;
+use Koost89\LoginLinks\Commands\LoginLinkCleanupCommand;
+use Koost89\LoginLinks\Commands\LoginLinkCreateCommand;
 
 class LoginLinkServiceProvider extends ServiceProvider
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Koost89\UserLogin\Tests;
+namespace Koost89\LoginLinks\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
-use Koost89\UserLogin\LoginLinkServiceProvider;
-use Koost89\UserLogin\Models\LoginLinkToken;
-use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\LoginLinks\LoginLinkServiceProvider;
+use Koost89\LoginLinks\Models\LoginLinkToken;
+use Koost89\LoginLinks\Tests\TestClasses\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

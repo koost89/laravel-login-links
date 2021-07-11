@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Database\Factories;
+namespace Koost89\LoginLinks\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Koost89\UserLogin\Models\LoginLinkToken;
+use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class UserLoginTokenFactory extends Factory
 {

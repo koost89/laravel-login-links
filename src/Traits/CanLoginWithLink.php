@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Koost89\UserLogin\Traits;
+namespace Koost89\LoginLinks\Traits;
 
 trait CanLoginWithLink
 {

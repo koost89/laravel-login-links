@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Koost89\UserLogin\Models;
+namespace Koost89\LoginLinks\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

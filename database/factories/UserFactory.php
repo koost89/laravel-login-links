@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Database\Factories;
+namespace Koost89\LoginLinks\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Koost89\UserLogin\Tests\TestClasses\User;
+use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class UserFactory extends Factory
 {

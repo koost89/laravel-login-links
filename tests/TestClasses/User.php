@@ -1,9 +1,9 @@
 <?php
 
-namespace Koost89\UserLogin\Tests\TestClasses;
+namespace Koost89\LoginLinks\Tests\TestClasses;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Koost89\UserLogin\Traits\CanLoginWithLink;
+use Koost89\LoginLinks\Traits\CanLoginWithLink;
 
 class User extends Authenticatable
 {
