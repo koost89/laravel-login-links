@@ -46,9 +46,9 @@ class TestCase extends Orchestra
             $table->softDeletes();
         });
 
-        include_once __DIR__ . '/../database/migrations/2021_07_07_120000_create_user_login_tokens_table.php';
+        include_once __DIR__ . '/../database/migrations/2021_07_07_120000_create_login_link_tokens_table.php';
 
-        (new \CreateUserLoginTokensTable())->up();
+        (new \CreateLoginLinkTokensTable())->up();
 
 
         User::create(['email' => 'test@test.com']);
