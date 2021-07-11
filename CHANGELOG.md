@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-login-links` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## 0.20 - 2021-07-11
+- Added `LoginLinkGenerated` and `LoginLinkUsed` events.
+- Added tests for events (and for custom config)
+- Updated readme.
 
-- initial release
+## 0.10 - 2021-07-11
+- Initial beta release
