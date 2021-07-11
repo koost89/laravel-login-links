@@ -26,7 +26,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
-        $this->assertEquals(3, LoginLinkToken::count());
+        $this->assertEquals(2, LoginLinkToken::count());
     }
 
     public function test_it_uses_the_config_for_expiration_threshold()
