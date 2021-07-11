@@ -27,7 +27,7 @@ class LoginLinkGeneratedTest extends TestCase
 
         LoginLink::generate($user);
 
-        Event::assertDispatched(function (LoginLinkGenerated $event) use ($user) {
+        Event::assertDispatched(LoginLinkGenerated::class, function ($event) use ($user) {
             return $event->id === $user->id && $event->class === get_class($user);
         });
     }

@@ -31,8 +31,9 @@ class LoginLinkUsedTest extends TestCase
 
         $this->get($url);
 
-        Event::assertDispatched(function (LoginLinkUsed $event) use ($user) {
+        Event::assertDispatched(LoginLinkUsed::class, function ($event) use ($user) {
             return (int) $event->id === $user->id && $event->class === get_class($user);
         });
+
     }
 }
