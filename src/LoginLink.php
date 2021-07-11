@@ -30,7 +30,7 @@ class LoginLink
 
     public function login($authId, $class, $userLoginToken = null)
     {
-        $guard = (new ($class))->getGuardName();
+        $guard = (new $class)->getGuardName();
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
