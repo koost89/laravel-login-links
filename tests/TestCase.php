@@ -3,6 +3,7 @@
 namespace Koost89\LoginLinks\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Koost89\LoginLinks\Helpers\URLHelper;
 use Koost89\LoginLinks\LoginLinkServiceProvider;
 use Koost89\LoginLinks\Models\LoginLinkToken;
 use Koost89\LoginLinks\Tests\TestClasses\OtherAuthenticatable;
@@ -91,7 +92,7 @@ class TestCase extends Orchestra
         ])->save();
     }
 
-    public function between($starting_word, $ending_word, $string)
+    protected function between($starting_word, $ending_word, $string)
     {
         $arr = explode($starting_word, $string);
         if (isset($arr[1])) {
@@ -101,5 +102,14 @@ class TestCase extends Orchestra
         }
 
         return '';
+    }
+
+    protected function assertIsValidLoginUrl($url, $authenticatable)
+    {
+        $this->assertStringContainsString(config('login-links.route.path'), $url);
+        $this->assertStringContainsString("auth_id=$authenticatable->id", $url);
+        $this->assertStringContainsString('auth_type=' . urlencode(URLHelper::classToEncodedString(get_class($authenticatable))), $url);
+        $this->assertStringContainsString("expires=", $url);
+        $this->assertStringContainsString("signature=", $url);
     }
 }

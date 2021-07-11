@@ -7,14 +7,12 @@ use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {
-    public function test_it_generates_a_signed_url()
+    public function test_it_generates_a_valid_signed_url()
     {
-        $url = LoginLink::generate(User::first());
+        $user = User::first();
+        $url = LoginLink::generate($user);
 
-        $this->assertStringContainsString(config('login-links.route.path'), $url);
-        $this->assertStringContainsString("auth_id=1", $url);
-        $this->assertStringContainsString('expires=', $url);
-        $this->assertStringContainsString('signature=', $url);
+        $this->assertIsValidLoginUrl($url, $user);
     }
 
     public function test_the_user_cannot_be_changed_after_generating_the_url()

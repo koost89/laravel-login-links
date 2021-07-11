@@ -36,6 +36,13 @@ $user = User::first();
 $link = LoginLink::generate($user);
 ```
 
+Or you can generate a url with the authenticatable object
+
+```php
+$user = User::first();
+$link = $user->generateLoginLink();
+```
+
 You can also use the command
 
 ```bash 

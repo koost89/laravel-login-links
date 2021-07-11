@@ -3,6 +3,7 @@
 namespace Koost89\LoginLinks;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Koost89\LoginLinks\Events\LoginLinkGenerated;
@@ -12,7 +13,7 @@ use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class LoginLink
 {
-    public function generate($authenticatable): string
+    public function generate(Authenticatable $authenticatable): string
     {
         $url = $this->generateUrl([
             'auth_id' => $authenticatable->getAuthIdentifier(),
