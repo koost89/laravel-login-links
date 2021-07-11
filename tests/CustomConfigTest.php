@@ -11,7 +11,7 @@ class CustomConfigTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-       $app['config']->set('login-links.route', [
+        $app['config']->set('login-links.route', [
            'path' => '/custom-route',
            'redirect_after_login' => '/test-redirect',
            'expire_after_visit' => false,
@@ -19,18 +19,18 @@ class CustomConfigTest extends TestCase
        ]);
     }
 
-   public function test_it_loads_the_path_from_the_config()
-   {
-       $url = LoginLink::generate(User::first());
-       $this->assertStringContainsString('/custom-route', $url);
-   }
+    public function test_it_loads_the_path_from_the_config()
+    {
+        $url = LoginLink::generate(User::first());
+        $this->assertStringContainsString('/custom-route', $url);
+    }
 
-   public function test_it_redirects_to_the_specified_url()
-   {
-       $url = LoginLink::generate(User::first());
-       $this->get($url)
+    public function test_it_redirects_to_the_specified_url()
+    {
+        $url = LoginLink::generate(User::first());
+        $this->get($url)
            ->assertRedirect('/test-redirect');
-   }
+    }
 
     public function test_it_doesnt_need_a_db_table_when_expire_after_visit_is_false()
     {
