@@ -5,7 +5,6 @@ namespace Koost89\LoginLinks\Tests\Commands;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Artisan;
 use Koost89\LoginLinks\Commands\LoginLinkCreateCommand;
-use Koost89\LoginLinks\Models\LoginLinkToken;
 use Koost89\LoginLinks\Tests\TestCase;
 use Koost89\LoginLinks\Tests\TestClasses\User;
 

@@ -91,13 +91,15 @@ class TestCase extends Orchestra
         ])->save();
     }
 
-    function between($starting_word, $ending_word, $string)
+    public function between($starting_word, $ending_word, $string)
     {
         $arr = explode($starting_word, $string);
-        if (isset($arr[1])){
+        if (isset($arr[1])) {
             $arr = explode($ending_word, $arr[1]);
+
             return $arr[0];
         }
+
         return '';
     }
 }
