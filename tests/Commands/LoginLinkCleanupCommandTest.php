@@ -23,7 +23,6 @@ class LoginLinkCleanupCommandTest extends TestCase
     {
         $this->createOneTimeLoginTokenRecord();
         $this->createOneTimeLoginTokenRecord(now()->subMinute());
-        $this->createOneTimeLoginTokenRecord(now()->subMinutes(2));
 
         Artisan::call(LoginLinkCleanupCommand::class);
 
