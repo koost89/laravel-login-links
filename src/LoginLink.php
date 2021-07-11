@@ -33,7 +33,7 @@ class LoginLink
 
     public function login($authId, $authType)
     {
-       $guard = $this->getGuardFromAuthType($authType);
+        $guard = $this->getGuardFromAuthType($authType);
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
@@ -102,6 +102,7 @@ class LoginLink
     private function getGuardFromAuthType($authType)
     {
         $class = $this->fromTypeString($authType);
+
         return (new $class)->getGuardName();
     }
 }
