@@ -150,6 +150,18 @@ class User extends Authenticatable
 
 ```
 
+### Events
+Events are dispatched on the following actions for you to listen to:
+
+`Koost89\LoginLinks\Events\LoginLinkGenerated`
+
+This event is fired when the URL is generated.
+
+`Koost89\LoginLinks\Events\LoginLinkUsed`
+
+This event is fired when the user is logged in after clicking on the link.
+
+
 ### Commands
 Login Links comes with a set of commands that will allow you to manage your links. 
 

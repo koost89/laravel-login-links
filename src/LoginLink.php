@@ -5,6 +5,8 @@ namespace Koost89\LoginLinks;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Koost89\LoginLinks\Events\LoginLinkGenerated;
+use Koost89\LoginLinks\Events\LoginLinkUsed;
 use Koost89\LoginLinks\Helpers\URLHelper;
 use Koost89\LoginLinks\Models\LoginLinkToken;
 
@@ -21,16 +23,20 @@ class LoginLink
             LoginLinkToken::create(['url' => $url]);
         }
 
+        LoginLinkGenerated::dispatch($authenticatable->id, get_class($authenticatable));
+
         return $url;
     }
 
-    public function login($authId, $authType, $userLoginToken = null)
+    public function login($authId, $class, $userLoginToken = null)
     {
-        $guard = $this->getGuardFromAuthType($authType);
+        $guard = (new ($class))->getGuardName();
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
                 ->loginUsingId($authId, config('login-links.auth.remember'));
+
+            LoginLinkUsed::dispatch($authId, $class);
         }
 
         if ($this->shouldExpireAfterVisit()) {
@@ -48,10 +54,8 @@ class LoginLink
         return URL::temporarySignedRoute('login-links.login', $this->createExpiration(), $params);
     }
 
-    protected function getGuardFromAuthType($authType)
+    protected function getGuardFromClass($class)
     {
-        $class = URLHelper::encodedStringToClass($authType);
-
         return (new $class)->getGuardName();
     }
 
