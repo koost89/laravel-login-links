@@ -33,7 +33,7 @@ class LoginLink
 
     public function login($authId, $authType)
     {
-        $guard = (new ($this->fromTypeString($authType)))->getGuardName();
+       $guard = $this->getGuardFromAuthType($authType);
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
@@ -99,5 +99,11 @@ class LoginLink
     {
         return Str::of(base64_decode($string))
             ->replace('_', '\\');
+    }
+
+    private function getGuardFromAuthType($authType)
+    {
+        $class = $this->fromTypeString($authType);
+        return (new $class)->getGuardName();
     }
 }
