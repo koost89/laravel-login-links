@@ -90,7 +90,7 @@ class LoginLink
     private function toTypeString(): string
     {
         return  base64_encode(
-            Str::replace('\\','_', get_class($this->authenticatable))
+            Str::replace('\\', '_', get_class($this->authenticatable))
         );
     }
 
