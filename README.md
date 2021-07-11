@@ -52,13 +52,13 @@ composer require koost89/laravel-login-links
 
 You can publish the migration file with:
 ```bash
-php artisan vendor:publish --provider="Koost89\UserLogin\LoginLinkServiceProvider" --tag="login-links-migrations"
+php artisan vendor:publish --provider="Koost89\LoginLinks\LoginLinkServiceProvider" --tag="login-links-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Koost89\UserLogin\LoginLinkServiceProvider" --tag="login-links-config"
+php artisan vendor:publish --provider="Koost89\LoginLinks\LoginLinkServiceProvider" --tag="login-links-config"
 ```
 
 This is the contents of the published config file:
