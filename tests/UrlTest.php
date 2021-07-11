@@ -7,7 +7,6 @@ use Koost89\UserLogin\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {
-
     public function test_it_generates_a_signed_url()
     {
         $url = (new LoginLink())->create(User::first());
@@ -38,5 +37,4 @@ class UrlTest extends TestCase
 
         $this->assertGuest();
     }
-
 }

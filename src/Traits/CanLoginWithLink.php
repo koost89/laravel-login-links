@@ -3,7 +3,6 @@
 
 namespace Koost89\UserLogin\Traits;
 
-
 trait CanLoginWithLink
 {
     public function getGuardName(): string
