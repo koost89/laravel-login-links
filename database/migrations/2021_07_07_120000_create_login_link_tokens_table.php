@@ -10,7 +10,7 @@ class CreateLoginLinkTokensTable extends Migration
     {
         Schema::create('login_link_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('url');
+            $table->text('url');
             $table->timestamps();
         });
     }

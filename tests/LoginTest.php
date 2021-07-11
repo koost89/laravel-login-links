@@ -28,10 +28,8 @@ class LoginTest extends TestCase
         $this->get($url)->assertRedirect(config('login-links.route.redirect_after_login'));
     }
 
-    public function test_it_stores_a_token_when_expire_after_visit_is_true()
+    public function test_it_stores_a_token_by_default()
     {
-        $this->app['config']->set('login-links.route.expire_after_visit', true);
-
         $user = User::inRandomOrder()->first();
 
         LoginLink::generate($user);
@@ -41,8 +39,6 @@ class LoginTest extends TestCase
 
     public function test_if_configured_it_can_expire_after_a_single_login()
     {
-        $this->app['config']->set('login-links.route.expire_after_visit', true);
-
         $user = User::inRandomOrder()->first();
 
         $url = LoginLink::generate($user);

@@ -13,8 +13,7 @@ class LoginLinkCreateCommandTest extends TestCase
 {
     public function test_the_command_can_execute()
     {
-        Artisan::call(LoginLinkCreateCommand::class, ['id' => 1, '--class' => User::class]);
-        $this->assertEquals(1, LoginLinkToken::count());
+        $this->assertEquals(0, Artisan::call(LoginLinkCreateCommand::class, ['id' => 1, '--class' => User::class]));
     }
 
     public function test_the_command_fails_when_model_can_not_be_found()

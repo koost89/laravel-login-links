@@ -7,20 +7,16 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Koost89\LoginLinks\Helpers\URLHelper;
 use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class LoginLink
 {
-    private $currentLoginToken;
-    private $authenticatable;
-
     public function generate($authenticatable): string
     {
-        $this->authenticatable = $authenticatable;
-
         $url = $this->generateUrl([
             'auth_id' => $authenticatable->getAuthIdentifier(),
-            'auth_type' => $this->toTypeString(),
+            'auth_type' => URLHelper::classToEncodedString(get_class($authenticatable)),
         ]);
 
         if ($this->shouldExpireAfterVisit()) {
@@ -30,7 +26,7 @@ class LoginLink
         return $url;
     }
 
-    public function login($authId, $authType)
+    public function login($authId, $authType, $userLoginToken = null)
     {
         $guard = $this->getGuardFromAuthType($authType);
 
@@ -40,40 +36,8 @@ class LoginLink
         }
 
         if ($this->shouldExpireAfterVisit()) {
-            $this->deleteCurrentUserLoginToken();
+            $this->deleteLoginToken($userLoginToken);
         }
-    }
-
-    public function deleteCurrentUserLoginToken(): void
-    {
-        if (! $this->currentLoginToken) {
-            throw new \LogicException("UserLoginToken is not available in service");
-        }
-
-        $this->currentLoginToken->delete();
-    }
-
-    public function getUser($authId, $guard): Authenticatable
-    {
-        $model = Auth::guard($guard)
-            ->getProvider()
-            ->retrieveById($authId);
-
-        if (! $model) {
-            throw new ModelNotFoundException();
-        }
-
-        return $model;
-    }
-
-    public function ensureUserLoginTokenExists(string $url): void
-    {
-        $this->currentLoginToken = LoginLinkToken::where('url', $url)->firstOrFail();
-    }
-
-    public function getExpiration(): Carbon
-    {
-        return now()->addSeconds(config('login-links.route.expiration'));
     }
 
     public function shouldExpireAfterVisit()
@@ -83,25 +47,23 @@ class LoginLink
 
     protected function generateUrl(array $params): string
     {
-        return URL::temporarySignedRoute('login-links.login', $this->getExpiration(), $params);
+        return URL::temporarySignedRoute('login-links.login', $this->createExpiration(), $params);
     }
 
-    private function toTypeString(): string
+    protected function getGuardFromAuthType($authType)
     {
-        return  base64_encode(
-            str_replace('\\', '_', get_class($this->authenticatable))
-        );
-    }
-
-    private function fromTypeString($string): string
-    {
-        return str_replace('_', '\\', base64_decode($string));
-    }
-
-    private function getGuardFromAuthType($authType)
-    {
-        $class = $this->fromTypeString($authType);
+        $class = URLHelper::encodedStringToClass($authType);
 
         return (new $class)->getGuardName();
+    }
+
+    protected function deleteLoginToken($userLoginToken): void
+    {
+        $userLoginToken->delete();
+    }
+
+    protected function createExpiration(): Carbon
+    {
+        return now()->addSeconds(config('login-links.route.expiration'));
     }
 }
