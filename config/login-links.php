@@ -2,13 +2,12 @@
 
 return [
     /**
-     * In this file you can configure parts of the login.
-     * OTL uses Laravels built in signedRoute functionality to generate signedURLs for users.
+     * In this file you can configure parts of login-links.
+     * Login links uses Laravels built in signedRoute functionality to generate signedURLs for users.
      */
     'route' => [
         /*
          * Here you can specify the path which is used to generate and authenticate the user on.
-         * The finished URL should look like domain.tld/<path>
          */
         'path' => '/uli',
 
@@ -34,7 +33,6 @@ return [
          * Extra middleware you would like to add to the route
          */
         'additional_middleware' => [
-            // 'guest'
             // Middleware\AdminUser::class,
         ]
     ],
@@ -49,11 +47,5 @@ return [
          * Dictates if the application should remember the user.
          */
         'remember' => false,
-
-        /*
-         * The response code that should be returned to the user when the signature is invalid.
-         * This can be useful if you want it to look like the page has not been found for example.
-         */
-        'invalid_signature_response' => 403,
     ]
 ];
