@@ -15,7 +15,7 @@ class LoginUsingLink extends Controller
             $otlService->ensureUserLoginTokenExists($request->getSchemeAndHttpHost() . $request->getRequestUri());
         }
 
-        $otlService->login($request->auth_id);
+        $otlService->login($request->auth_id, $request->auth_type);
 
         return redirect()->to(config('login-links.route.redirect_after_login'));
     }

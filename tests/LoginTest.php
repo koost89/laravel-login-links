@@ -12,7 +12,7 @@ class LoginTest extends TestCase
     {
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user->id);
+        $url = (new LoginLink())->create($user);
 
         $this->get($url);
 
@@ -23,7 +23,7 @@ class LoginTest extends TestCase
     {
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user->id);
+        $url = (new LoginLink())->create($user);
 
         $this->get($url)->assertRedirect(config('login-links.route.redirect_after_login'));
     }
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        (new LoginLink())->create($user->id);
+        (new LoginLink())->create($user);
 
         $this->assertEquals(1, UserLoginToken::count());
     }
@@ -45,7 +45,7 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user->id);
+        $url = (new LoginLink())->create($user);
 
         $this->get($url);
 
@@ -58,7 +58,7 @@ class LoginTest extends TestCase
 
         $user = User::inRandomOrder()->first();
 
-        $url = (new LoginLink())->create($user->id);
+        $url = (new LoginLink())->create($user);
 
         $this->followingRedirects()
             ->get($url)

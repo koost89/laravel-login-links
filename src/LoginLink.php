@@ -7,17 +7,22 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Koost89\UserLogin\Models\UserLoginToken;
 
 class LoginLink
 {
     private $currentLoginToken;
+    private $authenticatable;
 
-    public function create($id, array $extraParams = []): string
+    public function create($authenticatable): string
     {
-        $model = $this->getUser($id);
+        $this->authenticatable = $authenticatable;
 
-        $url = $this->generateUrl(array_merge($extraParams, ['auth_id' => $model->getAuthIdentifier()]));
+        $url = $this->generateUrl([
+            'auth_id' => $authenticatable->getAuthIdentifier(),
+            'auth_type' => $this->toTypeString(),
+        ]);
 
         if ($this->shouldExpireAfterVisit()) {
             UserLoginToken::create(['url' => $url]);
@@ -26,13 +31,13 @@ class LoginLink
         return $url;
     }
 
-    public function login($auth_id)
+    public function login($authId, $authType)
     {
-        $guard = config('login-links.auth.guard');
+        $guard = (new ($this->fromTypeString($authType)))->getGuardName();
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
-                ->login($this->getUser($auth_id), config('login-links.auth.remember'));
+                ->loginUsingId($authId, config('login-links.auth.remember'));
         }
 
         if ($this->shouldExpireAfterVisit()) {
@@ -49,11 +54,11 @@ class LoginLink
         $this->currentLoginToken->delete();
     }
 
-    public function getUser($id): Authenticatable
+    public function getUser($authId, $guard): Authenticatable
     {
-        $model = Auth::guard(config('login-links.auth.guard'))
+        $model = Auth::guard($guard)
             ->getProvider()
-            ->retrieveById($id);
+            ->retrieveById($authId);
 
         if (! $model) {
             throw new ModelNotFoundException();
@@ -80,5 +85,19 @@ class LoginLink
     protected function generateUrl(array $params): string
     {
         return URL::temporarySignedRoute('login-links.login', $this->getExpiration(), $params);
+    }
+
+    private function toTypeString(): string
+    {
+        return  base64_encode(
+            Str::of(get_class($this->authenticatable))
+                ->replace('\\', '_')
+        );
+    }
+
+    private function fromTypeString($string): string
+    {
+        return Str::of(base64_decode($string))
+            ->replace('_', '\\');
     }
 }

@@ -7,9 +7,10 @@ use Koost89\UserLogin\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {
+
     public function test_it_generates_a_signed_url()
     {
-        $url = (new LoginLink())->create(1);
+        $url = (new LoginLink())->create(User::first());
 
         $this->assertStringContainsString(config('login-links.route.path'), $url);
         $this->assertStringContainsString("auth_id=1", $url);
@@ -25,31 +26,17 @@ class UrlTest extends TestCase
             ->where('id', '!=', $user->id)
             ->first();
 
-        $url = (new LoginLink())->create($user->id);
+        $url = (new LoginLink())->create($user);
 
         $badUrl = str_replace('auth_id=' . $user->id, 'auth_id=' . $otherUser->id, $url);
 
         $this->get($badUrl)
             ->assertForbidden();
 
+        $this->get($url . 'added')
+            ->assertForbidden();
+
         $this->assertGuest();
     }
 
-    public function test_the_link_can_have_extra_parameters()
-    {
-        $user = User::inRandomOrder()->first();
-        $url = (new LoginLink())->create($user->id, ['extra_param' => 1]);
-
-        $this->assertStringContainsString('extra_param=1', $url);
-    }
-
-    public function test_the_link_is_still_valid_with_an_extra_parameter()
-    {
-        $user = User::inRandomOrder()->first();
-        $url = (new LoginLink())->create($user->id, ['extra_param' => 1]);
-
-        $this->get($url);
-
-        $this->assertAuthenticatedAs($user);
-    }
 }
