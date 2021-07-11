@@ -3,14 +3,15 @@
 
 namespace Koost89\LoginLinks\Events;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class LoginLinkUsed
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $id;
     public $class;
