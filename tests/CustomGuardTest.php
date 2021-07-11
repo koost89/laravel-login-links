@@ -2,15 +2,11 @@
 
 namespace Koost89\LoginLinks\Tests;
 
-use Illuminate\Database\Schema\Blueprint;
 use Koost89\LoginLinks\Facades\LoginLink;
 use Koost89\LoginLinks\Helpers\URLHelper;
-use Koost89\LoginLinks\LoginLinkServiceProvider;
-use Koost89\LoginLinks\Models\LoginLinkToken;
 use Koost89\LoginLinks\Tests\TestClasses\OtherAuthenticatable;
 use Koost89\LoginLinks\Tests\TestClasses\Team;
 use Koost89\LoginLinks\Tests\TestClasses\User;
-use Orchestra\Testbench\TestCase as Orchestra;
 
 class CustomGuardTest extends TestCase
 {
@@ -42,8 +38,8 @@ class CustomGuardTest extends TestCase
             ],
             'teams' => [
                 'driver' => 'eloquent',
-                'model' => Team::class
-            ]
+                'model' => Team::class,
+            ],
         ]);
 
         $this->app['config']->set('auth.guards', [
@@ -68,6 +64,5 @@ class CustomGuardTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
         $this->assertAuthenticatedAs($team, 'team');
-
     }
 }
