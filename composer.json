@@ -1,16 +1,18 @@
 {
     "name": "koost89/laravel-login-links",
-    "description": "Generate a (one time) login link to log in as a user",
+    "description": "Generate a login URL / link to log in as a user",
     "keywords": [
         "koost89",
         "laravel",
-        "one-time-login",
-        "user",
         "login",
+        "url",
         "link",
-        "user-login",
+        "user",
+        "one-time",
+        "login-link",
         "authenticate",
-        "passwordless"
+        "passwordless",
+        "one-time-login"
     ],
     "homepage": "https://github.com/koost89/laravel-login-links",
     "license": "MIT",
