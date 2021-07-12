@@ -39,9 +39,7 @@ class LoginLink
             LoginLinkUsed::dispatch($authId, $class);
         }
 
-        if ($authenticatable->hasVisitLimit()) {
-            $this->handleTokenVisits($loginLinkToken);
-        }
+        $this->handleTokenVisits($loginLinkToken);
     }
 
     protected function handleTokenCreation($url, $visits_allowed): void
@@ -55,7 +53,7 @@ class LoginLink
     protected function handleTokenVisits(LoginLinkToken $loginLinkToken): ?bool
     {
         if (! $loginLinkToken) {
-            return true;
+            return false;
         }
 
         $loginLinkToken->visits++;

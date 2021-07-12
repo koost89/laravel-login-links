@@ -12,11 +12,6 @@ trait CanLoginWithLink
         return config('login-links.auth.guard');
     }
 
-    public function hasVisitLimit(): bool
-    {
-        return $this->getAllowedVisits() > 0;
-    }
-
     public function getAllowedVisits()
     {
         return config('login-links.route.allowed_visits_before_expiration');
