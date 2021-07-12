@@ -2,14 +2,12 @@
 
 namespace Koost89\LoginLinks\Tests;
 
-use Koost89\LoginLinks\Facades\LoginLink;
 use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class UrlTest extends TestCase
 {
     public function test_it_generates_a_valid_signed_url()
     {
-
         $data = $this->createUrlAndToken();
 
         $this->assertIsValidLoginUrl($data->url, $data->user);
@@ -17,7 +15,6 @@ class UrlTest extends TestCase
 
     public function test_the_user_cannot_be_changed_after_generating_the_url()
     {
-
         $data = $this->createUrlAndToken();
 
         $otherUser = User::inRandomOrder()

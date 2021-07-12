@@ -5,7 +5,6 @@ namespace Koost89\LoginLinks\Tests;
 use Koost89\LoginLinks\Facades\LoginLink;
 use Koost89\LoginLinks\Models\LoginLinkToken;
 use Koost89\LoginLinks\Tests\TestClasses\User;
-use TheSeer\Tokenizer\Token;
 
 class LoginTest extends TestCase
 {
@@ -88,6 +87,5 @@ class LoginTest extends TestCase
         LoginLink::login($data->user->id, get_class($data->user), $data->token->fresh());
 
         $this->assertAuthenticatedAs($data->user);
-
     }
 }

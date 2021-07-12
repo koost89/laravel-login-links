@@ -48,7 +48,7 @@ class LoginLink
     {
         LoginLinkToken::create([
             'url' => $url,
-            'visits_allowed' => $visits_allowed
+            'visits_allowed' => $visits_allowed,
         ]);
     }
 

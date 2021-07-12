@@ -113,7 +113,7 @@ class TestCase extends Orchestra
         $url = $this->createUrl($user);
         $token = $this->getToken($url);
 
-        return (object) ['user' => $user, 'url' =>  $url, 'token' => $token];
+        return (object) ['user' => $user, 'url' => $url, 'token' => $token];
     }
 
     protected function between($starting_word, $ending_word, $string)
