@@ -46,7 +46,7 @@ $link = $user->generateLoginLink();
 You can also use the command
 
 ```bash 
-php artisan uli:create 1
+php artisan login-links:generate 1
 ```
 
 ## Installation
@@ -217,25 +217,25 @@ This event is fired when the user is logged in after clicking on the link.
 Login Links comes with a set of commands that will allow you to manage your links. 
 
 #### Generate Links
-The `uli:create` command takes an ID and an optional class (which by default is set to "App\Models\User") and returns 
+The `login-links:generate` command takes an ID and an optional class (which by default is set to "App\Models\User") and returns 
 the generated URL for you.
 
 If you have a different authenticatable class instead of the default you can specify it with the `--class=` option. 
 For example:
 ```bash
-php artisan uli:create 4 --class="App\Models\Admin"
+php artisan login-links:generate 4 --class="App\Models\Admin"
 ```
 
 #### Cleanup Links
 
-The `uli:cleanup` command is helpful to clean up time-expired tokens from your database.
+The `login-links:cleanup` command is helpful to clean up time-expired tokens from your database.
 This package creates a record in the database for every URL that has been generated. 
 Once they are expired, they cannot be accessed anymore. So they no longer serve any purpose and can be discarded. 
 You can add this command in your scheduler for automatic cleanup.
 ```php
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('uli:cleanup')->everyFiveMinutes();
+        $schedule->command('login-links:cleanup')->everyFiveMinutes();
     }
 ```
 
