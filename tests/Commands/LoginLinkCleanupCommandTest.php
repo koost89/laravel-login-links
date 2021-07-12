@@ -31,7 +31,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
     public function test_it_uses_the_config_for_expiration_threshold()
     {
-        $this->app['config']->set('login-links.route.expiration', 1);
+        config()->set('login-links.route.expiration', 1);
 
         $this->createOneTimeLoginTokenRecord(now()->subMinute());
 
@@ -42,7 +42,7 @@ class LoginLinkCleanupCommandTest extends TestCase
 
     public function test_the_expiration_can_support_longer_times()
     {
-        $this->app['config']->set('login-links.route.expiration', 60 * 60 * 24 * 7);
+        config()->set('login-links.route.expiration', 60 * 60 * 24 * 7);
 
         $this->createOneTimeLoginTokenRecord(now()->subDays(6));
 

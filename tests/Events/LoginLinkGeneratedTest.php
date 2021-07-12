@@ -4,9 +4,7 @@ namespace Koost89\LoginLinks\Tests\Events;
 
 use Illuminate\Support\Facades\Event;
 use Koost89\LoginLinks\Events\LoginLinkGenerated;
-use Koost89\LoginLinks\Facades\LoginLink;
 use Koost89\LoginLinks\Tests\TestCase;
-use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class LoginLinkGeneratedTest extends TestCase
 {
@@ -14,7 +12,7 @@ class LoginLinkGeneratedTest extends TestCase
     {
         Event::fake();
 
-        LoginLink::generate(User::first());
+        $this->createUrlAndToken();
 
         Event::assertDispatched(LoginLinkGenerated::class);
     }
@@ -23,12 +21,10 @@ class LoginLinkGeneratedTest extends TestCase
     {
         Event::fake();
 
-        $user = User::first();
+        $data = $this->createUrlAndToken();
 
-        LoginLink::generate($user);
-
-        Event::assertDispatched(LoginLinkGenerated::class, function ($event) use ($user) {
-            return $event->id === $user->id && $event->class === get_class($user);
+        Event::assertDispatched(LoginLinkGenerated::class, function ($event) use ($data) {
+            return $event->id === $data->user->id && $event->class === get_class($data->user);
         });
     }
 }

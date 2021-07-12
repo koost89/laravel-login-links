@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Event;
 use Koost89\LoginLinks\Events\LoginLinkUsed;
 use Koost89\LoginLinks\Facades\LoginLink;
 use Koost89\LoginLinks\Tests\TestCase;
-use Koost89\LoginLinks\Tests\TestClasses\User;
 
 class LoginLinkUsedTest extends TestCase
 {
@@ -14,9 +13,9 @@ class LoginLinkUsedTest extends TestCase
     {
         Event::fake();
 
-        $url = LoginLink::generate(User::first());
+        $data = $this->createUrlAndToken();
 
-        $this->get($url);
+        LoginLink::login($data->user->id, get_class($data->user), $data->token);
 
         Event::assertDispatched(LoginLinkUsed::class);
     }
@@ -25,14 +24,12 @@ class LoginLinkUsedTest extends TestCase
     {
         Event::fake();
 
-        $user = User::first();
+        $data = $this->createUrlAndToken();
 
-        $url = LoginLink::generate($user);
+        LoginLink::login($data->user->id, get_class($data->user), $data->token);
 
-        $this->get($url);
-
-        Event::assertDispatched(LoginLinkUsed::class, function ($event) use ($user) {
-            return (int) $event->id === $user->id && $event->class === get_class($user);
+        Event::assertDispatched(LoginLinkUsed::class, function ($event) use ($data) {
+            return (int) $event->id === $data->user->id && $event->class === get_class($data->user);
         });
     }
 }

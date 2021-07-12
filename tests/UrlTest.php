@@ -9,28 +9,28 @@ class UrlTest extends TestCase
 {
     public function test_it_generates_a_valid_signed_url()
     {
-        $user = User::first();
-        $url = LoginLink::generate($user);
 
-        $this->assertIsValidLoginUrl($url, $user);
+        $data = $this->createUrlAndToken();
+
+        $this->assertIsValidLoginUrl($data->url, $data->user);
     }
 
     public function test_the_user_cannot_be_changed_after_generating_the_url()
     {
-        $user = User::inRandomOrder()->first();
+
+        $data = $this->createUrlAndToken();
 
         $otherUser = User::inRandomOrder()
-            ->where('id', '!=', $user->id)
+            ->where('id', '!=', $data->user->id)
             ->first();
 
-        $url = LoginLink::generate($user);
 
-        $badUrl = str_replace('auth_id=' . $user->id, 'auth_id=' . $otherUser->id, $url);
+        $badUrl = str_replace('auth_id=' . $data->user->id, 'auth_id=' . $otherUser->id, $data->url);
 
         $this->get($badUrl)
             ->assertForbidden();
 
-        $this->get($url . 'added')
+        $this->get($data->url . 'added')
             ->assertForbidden();
 
         $this->assertGuest();

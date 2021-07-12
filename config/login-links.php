@@ -22,11 +22,10 @@ return [
         'redirect_after_login' => '/',
 
         /**
-         * If the token should expire after the first visit.
-         * If set to true you must run the migration for the one_time_logins table.
-         * If set to false the link can be used until it is expired.
+         * After how many visits the token should expire
+         * After the specified amount visits, the token is immediately deleted from the database.
          */
-        'expire_after_visit' => true,
+        'allowed_visits_before_expiration' => 1,
 
         /**
          * Extra middleware you would like to add to the route

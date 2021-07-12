@@ -6,7 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
 
 Login links for Laravel is a package for Laravel 6, 7 and 8
-that allows users to easily log in with a (one-time) login link.
+that allows users to easily log in with a (one-time) login URL.
 
 ### Quick example
 Creating a link for a user works as follows:
@@ -93,11 +93,10 @@ return [
         'redirect_after_login' => '/',
 
         /**
-         * Dictates if the token should expire after the first visit.
-         * If set to true you must run the migration for the one_time_logins table.
-         * If set to false the link can be used until it is expired.
+         * After how many visits the token should expire
+         * After the specified amount visits, the token is immediately deleted from the database.
          */
-        'expire_after_visit' => true,
+        'allowed_visits_before_expiration' => 1,
 
         /**
          * Extra middleware you would like to add to the route
@@ -122,6 +121,51 @@ return [
 ```
 
 ## Usage
+
+### Default usage
+
+By default Login Links expires the tokens after 120 seconds or after a visit to the URL.
+These values can be changed in the config file located in `config/login-links.php`.
+
+To get started generating URL's for your users you must run the migration mentioned above.
+
+In your User (or other authenticatable) class add the `CanLoginWithLink` trait.
+
+```php
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Koost89\LoginLinks\Traits\CanLoginWithLink;
+
+class User extends Authenticatable
+{
+    use CanLoginWithLink;
+    
+    //...
+}
+
+```
+
+After this you can generate signed URL's with the following methods. 
+
+```php
+use Koost89\LoginLinks\Facades\LoginLink;
+
+$user = User::first();
+$link = LoginLink::generate($user);
+```
+
+Or you can generate a url with the authenticatable object
+
+```php
+$user = User::first();
+$link = $user->generateLoginLink();
+```
+
+You can also use the command
+
+```bash 
+php artisan login-links:generate 1
+```
 
 ### Authenticatable classes
 
@@ -184,9 +228,9 @@ php artisan uli:create 4 --class="App\Models\Admin"
 
 #### Cleanup Links
 
-The `uli:cleanup` command is helpful when `expire_after_visit` is set to `true` (which is default). 
-This option creates a record in the database for every URL that has been generated. 
-Once they are expired, they should no longer serve any purpose and can be discarded. 
+The `uli:cleanup` command is helpful to clean up time-expired tokens from your database.
+This package creates a record in the database for every URL that has been generated. 
+Once they are expired, they cannot be accessed anymore. So they no longer serve any purpose and can be discarded. 
 You can add this command in your scheduler for automatic cleanup.
 ```php
     protected function schedule(Schedule $schedule)

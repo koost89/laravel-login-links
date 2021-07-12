@@ -92,6 +92,30 @@ class TestCase extends Orchestra
         ])->save();
     }
 
+    public function getUser()
+    {
+        return User::inRandomOrder()->first();
+    }
+
+    public function createUrl($user)
+    {
+        return $user->generateLoginLink();
+    }
+
+    public function getToken($url)
+    {
+        return LoginLinkToken::where('url', $url)->first();
+    }
+
+    public function createUrlAndToken()
+    {
+        $user = $this->getUser();
+        $url = $this->createUrl($user);
+        $token = $this->getToken($url);
+
+        return (object) ['user' => $user, 'url' =>  $url, 'token' => $token];
+    }
+
     protected function between($starting_word, $ending_word, $string)
     {
         $arr = explode($starting_word, $string);

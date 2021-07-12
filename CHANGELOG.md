@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-login-links` will be documented in this file.
 
+## 1.0.0 - 2021-08-11
+- Replaced `expire_after_visit` with `allowed_visits_before_expiration` config value.
+Users can now specify how many times a URL can be visited before it expires.
+- Added `visits` and `visits_allowed` to migration
+- Updated tests
+- Updated README.md
+
 ## 0.30 - 2021-07-11
 - Added `generateLoginLink()` method for classes that have `CanLoginWithLink` trait.
 - Added tests for `generateLoginLink()`
