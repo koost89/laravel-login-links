@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Check%20&%20fix%20styling/main?label=code%20style)](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Check%20&%20fix%20styling/main?label=code%20style)
-[![Total Downloads](https://img.shields.io/packagist/dt/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
 
 Login links for Laravel is a package for Laravel 6, 7 and 8
 that allows users to easily log in with a (one-time) login URL.
