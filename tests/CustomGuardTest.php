@@ -19,7 +19,7 @@ class CustomGuardTest extends TestCase
 
     public function test_the_generated_link_is_valid_for_custom_models()
     {
-        $this->app['config']->set('auth.providers.users.model', OtherAuthenticatable::class);
+//        config()->set('auth.providers.users.model', OtherAuthenticatable::class);
 
         $otherAuthenticatable = OtherAuthenticatable::inRandomOrder()->first();
 
@@ -31,7 +31,7 @@ class CustomGuardTest extends TestCase
 
     public function test_it_can_support_multiple_guards()
     {
-        $this->app['config']->set('auth.providers', [
+        config()->set('auth.providers', [
             'users' => [
                 'driver' => 'eloquent',
                 'model' => User::class,
@@ -42,7 +42,7 @@ class CustomGuardTest extends TestCase
             ],
         ]);
 
-        $this->app['config']->set('auth.guards', [
+        config()->set('auth.guards', [
             'web' => [
                 'driver' => 'session',
                 'provider' => 'users',

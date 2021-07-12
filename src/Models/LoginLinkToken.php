@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoginLinkToken extends Model
 {
-    protected $fillable = ['url'];
+    protected $fillable = ['url', 'visits_allowed'];
+
+    public function hasExceededVisitLimit()
+    {
+        return $this->visits >= $this->visits_allowed;
+    }
 }

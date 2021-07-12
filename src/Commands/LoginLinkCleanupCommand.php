@@ -7,7 +7,7 @@ use Koost89\LoginLinks\Models\LoginLinkToken;
 
 class LoginLinkCleanupCommand extends Command
 {
-    public $signature = 'uli:cleanup';
+    public $signature = 'login-links:cleanup';
 
     public $description = 'Cleans up all the expired tokens in the database.';
 

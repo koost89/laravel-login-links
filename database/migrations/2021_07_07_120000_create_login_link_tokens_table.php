@@ -11,6 +11,8 @@ class CreateLoginLinkTokensTable extends Migration
         Schema::create('login_link_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('url');
+            $table->integer('visits')->default(0);
+            $table->integer('visits_allowed')->default(1);
             $table->timestamps();
         });
     }

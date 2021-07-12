@@ -13,14 +13,12 @@ class LoginUsingLink extends Controller
 {
     public function __invoke(Request $request, LoginLink $loginLink): RedirectResponse
     {
-        if ($loginLink->shouldExpireAfterVisit()) {
-            $loginToken = LoginLinkToken::where('url', $request->getSchemeAndHttpHost() . $request->getRequestUri())
-                ->firstOrFail();
-        }
-
         $class = URLHelper::encodedStringToClass($request->auth_type);
 
-        $loginLink->login($request->auth_id, $class, $loginToken ?? null);
+        $loginToken = LoginLinkToken::where('url', $request->getSchemeAndHttpHost() . $request->getRequestUri())
+            ->firstOrFail();
+
+        $loginLink->login($request->auth_id, $class, $loginToken);
 
         return redirect()->to(config('login-links.route.redirect_after_login'));
     }

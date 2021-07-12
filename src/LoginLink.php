@@ -20,18 +20,17 @@ class LoginLink
             'auth_type' => URLHelper::classToEncodedString(get_class($authenticatable)),
         ]);
 
-        if ($this->shouldExpireAfterVisit()) {
-            LoginLinkToken::create(['url' => $url]);
-        }
+        $this->handleTokenCreation($url, $authenticatable->getAllowedVisits());
 
         LoginLinkGenerated::dispatch($authenticatable->id, get_class($authenticatable));
 
         return $url;
     }
 
-    public function login($authId, $class, $userLoginToken = null)
+    public function login($authId, string $class, LoginLinkToken $loginLinkToken): void
     {
-        $guard = (new $class)->getGuardName();
+        $authenticatable = new $class;
+        $guard = $authenticatable->getGuardName();
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)
@@ -40,29 +39,37 @@ class LoginLink
             LoginLinkUsed::dispatch($authId, $class);
         }
 
-        if ($this->shouldExpireAfterVisit()) {
-            $this->deleteLoginToken($userLoginToken);
+        if ($authenticatable->hasVisitLimit()) {
+            $this->handleTokenVisits($loginLinkToken);
         }
     }
 
-    public function shouldExpireAfterVisit()
+    protected function handleTokenCreation($url, $visits_allowed): void
     {
-        return config('login-links.route.expire_after_visit');
+        LoginLinkToken::create([
+            'url' => $url,
+            'visits_allowed' => $visits_allowed,
+        ]);
+    }
+
+    protected function handleTokenVisits(LoginLinkToken $loginLinkToken): ?bool
+    {
+        if (! $loginLinkToken) {
+            return true;
+        }
+
+        $loginLinkToken->visits++;
+
+        if ($loginLinkToken->hasExceededVisitLimit()) {
+            return $loginLinkToken->delete();
+        }
+
+        return $loginLinkToken->save();
     }
 
     protected function generateUrl(array $params): string
     {
         return URL::temporarySignedRoute('login-links.login', $this->createExpiration(), $params);
-    }
-
-    protected function getGuardFromClass($class)
-    {
-        return (new $class)->getGuardName();
-    }
-
-    protected function deleteLoginToken($userLoginToken): void
-    {
-        $userLoginToken->delete();
     }
 
     protected function createExpiration(): Carbon

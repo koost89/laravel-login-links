@@ -7,7 +7,7 @@ use Koost89\LoginLinks\LoginLink;
 
 class LoginLinkCreateCommand extends Command
 {
-    public $signature = 'uli:create {id} {--class=App\Models\User}';
+    public $signature = 'login-links:generate {id} {--class=App\Models\User}';
 
     public $description = 'Generate a signed login url for a specific user.';
 
