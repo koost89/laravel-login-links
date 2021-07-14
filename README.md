@@ -82,7 +82,6 @@ return [
 
         /**
          * The amount (in seconds) it takes for the generated URL to expire.
-         * Afterwards it simply returns a 404 for the user.
          */
         'expiration' => 60 * 2,
 
