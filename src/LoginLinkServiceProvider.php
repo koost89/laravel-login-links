@@ -10,6 +10,11 @@ class LoginLinkServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/login-links.php',
+            'login-links'
+        );
+
         $this->app->bind('login-link', function ($app) {
             return new LoginLink();
         });
@@ -17,11 +22,6 @@ class LoginLinkServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/login-links.php',
-            'login-links'
-        );
-
         if (app()->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/' => database_path('migrations/'),
