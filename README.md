@@ -1,4 +1,6 @@
-# Login links for Laravel
+![Login Links for Laravel Logo](https://github.com/koost89/laravel-login-links/blob/main/meta/logo.png)
+
+# Generate login links for users
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/koost89/laravel-login-links.svg?style=flat-square)](https://packagist.org/packages/koost89/laravel-login-links)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)](https://img.shields.io/github/workflow/status/koost89/laravel-login-links/Tests%20-%20Current/main?label=tests)
