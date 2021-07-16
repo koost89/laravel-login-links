@@ -12,24 +12,6 @@ that allows users to easily log in with a (one-time) login URL.
 ### Quick example
 Creating a link for a user works as follows:
 
-In your User (or other authenticatable) class add the `CanLoginWithLink` trait.
-
-```php
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Koost89\LoginLinks\Traits\CanLoginWithLink;
-
-class User extends Authenticatable
-{
-    use CanLoginWithLink;
-    
-    //...
-}
-
-```
-
-Then to use it in your application, simply specify a user to create a login link for.
-
 ```php
 use Koost89\LoginLinks\Facades\LoginLink;
 
